@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include "Order.h"
 
 using namespace std;
 
@@ -10,14 +11,6 @@ class OrderService {
 
 public:
     void syncBookOrders();
-    struct order {
-        string type;
-        int price;
-        string productName;
-        string customerName;
-
-        order(string type, int price, string productName, string customerName) : type(type), price(price), productName(productName), customerName(customerName) {}
-    };
 
 private:
     string filePath = "C:\\temp\\testOrders.csv";

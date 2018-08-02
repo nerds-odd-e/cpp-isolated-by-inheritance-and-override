@@ -21,7 +21,7 @@ void OrderService::syncBookOrders() {
     }
 }
 
-list<OrderService::order> OrderService::getOrders() {
+list<order> OrderService::getOrders() {
     // parse csv file to get orders
     list<order> result;
 
@@ -46,7 +46,7 @@ list<OrderService::order> OrderService::getOrders() {
     return result;
 }
 
-OrderService::order OrderService::mapping(vector<string> columns) {
+order OrderService::mapping(vector<string> columns) {
     return order(columns[0], atoi(columns[2].c_str()), columns[1], columns[3]);
 }
 
