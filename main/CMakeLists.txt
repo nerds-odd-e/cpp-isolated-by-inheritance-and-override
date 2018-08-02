@@ -1,4 +1,4 @@
-set(Main_SRCS main.cpp)
+set(Main_SRCS main.cpp OrderService.cpp OrderService.h BookDao.cpp BookDao.h)
 
 add_library(core ${Main_SRCS})
 add_executable(${CMAKE_PROJECT_NAME} main.cpp)
