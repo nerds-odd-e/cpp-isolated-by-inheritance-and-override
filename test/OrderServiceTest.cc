@@ -14,28 +14,24 @@ using ::testing::Invoke;
 using namespace std;
 
 using ::testing::_;
+using ::testing::Eq;
 
-class DummyBookDao : public BookDao {
-public:
-    void insert(order order) override {
-        std::cout << "do nothing dao" << std::endl;
-    }
-};
 namespace {
+
+    MATCHER_P(OrderEq, order, "") {
+        return arg.type == order.type && arg.price == order.price && arg.productName == order.productName && arg.customerName == order.customerName;
+    };
 
     TEST(OrderServiceTest, BookOrder) {
         MockBookDao mockBookDao;
-        EXPECT_CALL(mockBookDao, insert(_));
-//        DummyBookDao dummyBookDao;
+        EXPECT_CALL(mockBookDao, insert(OrderEq(order("Book", 100, "TDD", "Customer"))));
+
         SpyOrderService target(mockBookDao);
-        EXPECT_CALL(target, getOrders()).WillOnce(Return(list<order>{
+        ON_CALL(target, getOrders()).WillByDefault(Return(list<order>{
                 order("Book", 100, "TDD", "Customer"),
                 order("Food", 20, "Apple", "Customer")
         }));
-//        mockBookDao.insert(order("Book", 100, "TDD", "Customer"));
-//        EXPECT_CALL(target, getBookDao()).WillOnce(ReturnRef(dummyBookDao));
-//        EXPECT_CALL(target, syncBookOrders()).WillOnce(Invoke(&target, &SpyOrderService::realSyncBookOrders));
-//
+
         target.syncBookOrders();
     }
 
