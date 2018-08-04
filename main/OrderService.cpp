@@ -4,7 +4,6 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-#include <iostream>
 
 void OrderService::syncBookOrders() {
     list<order> orders = getOrders();
@@ -12,7 +11,6 @@ void OrderService::syncBookOrders() {
     // only get orders of book
     list<order> ordersOfBook;
     copy_if(orders.begin(), orders.end(), back_inserter(ordersOfBook), [&](order o) {
-        std::cout << o.type << std::endl;
         return o.type == "Book";
     });
 
@@ -52,7 +50,6 @@ order OrderService::mapping(vector<string> columns) {
 }
 
 BookDao& OrderService::getBookDao() {
-    std::cout << "call real get book dao" << std::endl;
     BookDao bookDao;
     return bookDao;
 }

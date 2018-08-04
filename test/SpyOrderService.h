@@ -7,23 +7,17 @@
 class SpyOrderService : public OrderService {
 
 public:
-    MOCK_METHOD0(getOrders, list<order>());
+    SpyOrderService(BookDao& bookDao) : bookDao(bookDao) {}
 
-    explicit SpyOrderService(BookDao& bookDao) : bookDao(bookDao) {}
-
-    BookDao& getBookDao() override {
-        std::cout << "get book dao from spy" << std::endl;
+    BookDao& getBookDao() {
         return bookDao;
     }
+
+    MOCK_METHOD0(getOrders, list<order>());
 
 private:
     BookDao& bookDao;
 
-//    MOCK_METHOD0(syncBookOrders, void());
-
-//    void realSyncBookOrders() {
-//        OrderService::syncBookOrders();
-//    }
 };
 
 #endif //CPP_ISOLATED_BY_INHERITANCE_AND_OVERRIDE_SPYORDERSERVICE_H
