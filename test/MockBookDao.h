@@ -7,7 +7,7 @@
 class MockBookDao : public BookDao {
 
 public:
-    MOCK_METHOD1(insert, void(order));
+    MOCK_METHOD1(insert, void(order&));
 
 };
 
