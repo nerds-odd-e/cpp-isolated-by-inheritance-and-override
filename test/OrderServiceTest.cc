@@ -14,7 +14,7 @@ using ::testing::Invoke;
 using namespace std;
 
 using ::testing::_;
-using ::testing::Eq;
+using ::testing::ReturnRef;
 
 namespace {
 
@@ -26,11 +26,18 @@ namespace {
         MockBookDao mockBookDao;
         EXPECT_CALL(mockBookDao, insert(OrderEq(order("Book", 100, "TDD", "Customer"))));
 
-        SpyOrderService target(mockBookDao);
+        SpyOrderService target;
         ON_CALL(target, getOrders()).WillByDefault(Return(list<order>{
                 order("Book", 100, "TDD", "Customer"),
                 order("Food", 20, "Apple", "Customer")
         }));
+        ON_CALL(target, getBookDao()).WillByDefault(ReturnRef(mockBookDao));
+
+        target.syncBookOrders();
+    }
+
+    TEST(OrderServiceTest, NormalUsage) {
+        ConcreteOrderService target;
 
         target.syncBookOrders();
     }

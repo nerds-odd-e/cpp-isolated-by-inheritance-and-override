@@ -7,9 +7,8 @@
 class SpyOrderService : public OrderService {
 
 public:
-    SpyOrderService(BookDao& bookDao) : OrderService(bookDao) { }
-
     MOCK_METHOD0(getOrders, list<order>());
+    MOCK_METHOD0(getBookDao, BookDao&());
 
 };
 

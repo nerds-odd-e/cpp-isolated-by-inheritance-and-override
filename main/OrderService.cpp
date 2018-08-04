@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <iostream>
 
 void OrderService::syncBookOrders() {
     list<order> orders = getOrders();
@@ -15,31 +16,34 @@ void OrderService::syncBookOrders() {
     });
 
     for (order order : ordersOfBook) {
-        bookDao.insert(order);
+        getBookDao().insert(order);
     }
 }
 
 list<order> OrderService::getOrders() {
+    std::cout << "call real get orders" << std::endl;
     // parse csv file to get orders
-    list<order> result;
+    list<order> result = {
+            order("Book", 100, "TDD", "Customer")
+    };
 
-    ifstream infile(filePath);
-    string line;
-    int rowCount = 0;
-    while (getline(infile, line)) {
-        rowCount++;
-
-        // Skip CSV header line
-        if (rowCount > 1) {
-            vector<string> columns;
-            istringstream f(line);
-            string s;
-            while (getline(f, s, ',')) {
-                columns.push_back(s);
-            }
-            result.push_back(mapping(columns));
-        }
-    }
+//    ifstream infile(filePath);
+//    string line;
+//    int rowCount = 0;
+//    while (getline(infile, line)) {
+//        rowCount++;
+//
+//        // Skip CSV header line
+//        if (rowCount > 1) {
+//            vector<string> columns;
+//            istringstream f(line);
+//            string s;
+//            while (getline(f, s, ',')) {
+//                columns.push_back(s);
+//            }
+//            result.push_back(mapping(columns));
+//        }
+//    }
 
     return result;
 }
@@ -47,6 +51,4 @@ list<order> OrderService::getOrders() {
 order OrderService::mapping(vector<string> columns) {
     return order(columns[0], atoi(columns[2].c_str()), columns[1], columns[3]);
 }
-
-OrderService::OrderService(BookDao &bookDao) : bookDao(bookDao) {}
 
