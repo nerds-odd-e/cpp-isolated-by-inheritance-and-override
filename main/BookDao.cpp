@@ -1,6 +1,8 @@
 #include "BookDao.h"
 #include <stdexcept>
+#include <iostream>
 
 void BookDao::insert(order order) {
-    throw std::logic_error("Not Implemented");
+    std::cout << "real insert" << std::endl;
+//    throw std::logic_error("Not Implemented");
 }

@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include "Order.h"
+#include "BookDao.h"
 
 using namespace std;
 
@@ -12,9 +13,12 @@ class OrderService {
 public:
     void syncBookOrders();
 
+protected:
+    virtual list<order> getOrders();
+    virtual BookDao& getBookDao();
+
 private:
     string filePath = "C:\\temp\\testOrders.csv";
-    list<order> getOrders();
     order mapping(vector<string> columns);
 };
 
