@@ -14,7 +14,6 @@ void OrderService::syncBookOrders() {
         return o.type == "Book";
     });
 
-    BookDao& bookDao = getBookDao();
     for (order order : ordersOfBook) {
         bookDao.insert(order);
     }
@@ -49,8 +48,5 @@ order OrderService::mapping(vector<string> columns) {
     return order(columns[0], atoi(columns[2].c_str()), columns[1], columns[3]);
 }
 
-BookDao& OrderService::getBookDao() {
-    BookDao bookDao;
-    return bookDao;
-}
+OrderService::OrderService(BookDao &bookDao) : bookDao(bookDao) {}
 
