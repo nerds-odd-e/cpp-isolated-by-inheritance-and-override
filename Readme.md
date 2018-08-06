@@ -4,9 +4,9 @@ To build the code and test, please:
 ```
     mkdir build
     cd build
-    cmake
+    cmake ..
     make
 ```
-To run the code, please execute `./main/cpp_otp`
+To run the code, please execute `./main/cpp-isolated-by-inheritance-and-override`
 
-To run the test, please execute `./test/cpp_otp_test`
+To run the test, please execute `./test/cpp-isolated-by-inheritance-and-override_test`
